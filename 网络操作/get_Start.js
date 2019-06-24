@@ -10,7 +10,7 @@ const http=require('http')
 
 // http.createServer((request,response)=>{
 //   const body=[]
-//   log请求体
+//   //log请求体
 //   request.on('data',(chunk)=>{
 //     body.push(chunk)
 //   })
@@ -23,16 +23,24 @@ const http=require('http')
 // }).listen('8124')
 
 
+
+
+
 http.createServer((request,response)=>{
   response.writeHead(200,{
-    'Content-type':'text/plain'
+    'Content-type':'text/plain',
+    'Connection':'keep-alive'
   })
-
+  console.log(request.method)
+  console.log(request.headers)
+//  //response the request 
   request.on('data',(chunk)=>{
     response.write(chunk)
   })
 
   request.on('end',()=>{
-    response.end('the end')
+    response.end('response end')
   })
 }).listen(8124)
+
+
