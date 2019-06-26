@@ -1,5 +1,5 @@
 const http=require('http')
-
+const zlib=require('zlib')
 const options = {
   hostname: '0.0.0.0',
   port: 8124,
@@ -7,7 +7,8 @@ const options = {
   method: 'POST',
   headers: {
     'Content-type': 'text/plain',
-    'Connection':'keep-alive'
+    'Connection':'keep-alive',
+    'Accept-Encoding':'gzip, deflate'
   }
 }
 
@@ -18,8 +19,18 @@ let request = http.request(options, (response) => {
     body.push(chunk)
   })
   response.on('end',()=>{
-    body.concat()
-    console.log(body.toString())
+    Buffer.concat(body)
+    if((response.headers['content-encoding'] || '').includes('gzip')){
+      zlib.gunzip(body,(err,data)=>{
+        if(err){
+          console.error(err)
+        }else{
+          console.log(data.toString())
+        }
+      })
+    }else{
+      console.log(body)
+    }
   })
 })
 

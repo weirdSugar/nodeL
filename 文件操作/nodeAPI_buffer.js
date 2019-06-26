@@ -1,9 +1,18 @@
+
+/**
+ * JS语言自身只有字符串数据类型，没有二进制数据类型，
+ * 因此NodeJS提供了一个与String对等的全局构造函数Buffer
+ * 来提供对二进制数据的操作。
+ * 除了可以读取文件得到Buffer的实例外，还能够直接构造
+ */
+
+
 const buf=Buffer.from('阿萨德安慰我')
 // var buf =Buffer.from([0x68, 0x65, 0x6c, 0x6c, 0x6f]);
 console.log(buf)
 console.log(buf.length)
 console.log(buf[0])
-console.log(buf.toString())
+console.log(buf.toString('utf-8'))
 console.log(buf.toJSON())
 console.log('\n\n')
 
