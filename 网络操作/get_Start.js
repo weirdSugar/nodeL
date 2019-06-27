@@ -32,6 +32,8 @@ http.createServer((request,response)=>{
     'Connection':'keep-alive'
   })
   console.log(request.method)
+  console.log(request.url)
+  
   console.log(request.headers)
 //  //response the request 
   request.on('data',(chunk)=>{

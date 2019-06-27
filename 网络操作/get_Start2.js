@@ -15,11 +15,12 @@ const options = {
 let request = http.request(options, (response) => {
   const body=[]
   console.log(response.headers)
+  console.log(response.url)
   response.on('data',(chunk)=>{
     body.push(chunk)
   })
   response.on('end',()=>{
-    Buffer.concat(body)
+    const data =Buffer.concat(body)
     if((response.headers['content-encoding'] || '').includes('gzip')){
       zlib.gunzip(body,(err,data)=>{
         if(err){
@@ -29,7 +30,7 @@ let request = http.request(options, (response) => {
         }
       })
     }else{
-      console.log(body)
+      console.log(data)
     }
   })
 })
